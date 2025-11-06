@@ -58,6 +58,6 @@ export default class Calculator {
     }
 
     getDisplay() {
-        return this.currentInput || this.previousInput || '0'
+        return (this.currentInput || this.previousInput || '0').toString()
     }
 }
