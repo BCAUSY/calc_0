@@ -48,16 +48,22 @@ export default class Calculator {
     }
 
     clear() {
-        this.currentInput = '';
+        this.currentInput = '0';
         this.previousInput + '';
         this.operator = null;
+        this.getDisplay()
     }
 
     delete() {
+        // delete -5 deletes 5 only
         this.currentInput = this.currentInput.slice(0, -1);
     }
 
     getDisplay() {
         return (this.currentInput || this.previousInput || '0').toString()
+    }
+
+    getOperator(){
+        return this.operator || null
     }
 }

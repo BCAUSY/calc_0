@@ -1,37 +1,69 @@
 <script>
-    export let text;
-    export let onClick;
-    export let type;
+	export let text;
+	export let onClick;
+	export let type;
 </script>
 
 <button class="btn {type}" on:click={onClick}>
-    {text}
+	{text}
 </button>
 
 <style>
+	.btn {
+		margin: var(--dpp);
+		padding: var(--up);
+		font-family: monospace;
+		font-size: var(--upp);
+		font-weight: 900;
+		color: var(--dark1);
+		border-radius: var(--dp);
+		border: 1px solid #8676322f;
+		transition:
+			background-color 0.24s,
+			transform 0.04s;
+		box-shadow:
+			0 0 0px var(--light2),
+			0 0 0px var(--light2),
+			0 0 0px var(--light2),
+            inset 1px 1px 0px var(--light1);
+	}
 
-    .btn {
-        margin:0.35rem;
-        font-family: monospace;
-        font-size: 2rem;
-        border-radius: 5%;
-        border: 1px solid #8676322f;
-        transition: background-color 0.24s, transform 0.04s;
-    }
-    .num:hover {
-background-color: #f1c40e33;
-    }
+	.num {
+		background-color: var(--light2);
+        color: var(--light1);
+	}
+	.num:hover {
+		background-color: var(--light2);
+	}
 
-    .btn:active {
-        transform: scale(0.99);
-        background-color: #f1c40e;
-    }
-    .num {
-        padding: 2rem;
-    }
+	.btn:active {
+		transform: scale(0.99);
+		background-color: var(--light1);
+		box-shadow:
+			0 0 3px var(--light1),
+			0 0 9px var(--light1),
+			0 0 16px var(--light1),
+            inset 1px 1px 0px var(--light2);
+	}
+	.num {
+		padding: var(--upp);
+	}
 
-    .operator {
-        background-color: beige;
-    }
+	.operator {
+		background-color: var(--dark3);
+        color: var(--dark2);
+	}
 
+	.equal {
+		width: calc(100% / 1.5);
+        margin-top: var(--dp);
+        margin-left: auto;
+        background-color: var(--orange);
+	}
+
+	.action {
+		font-weight: 600;
+		color: var(--dark3);
+		background-color: var(--red);
+	}
 </style>
