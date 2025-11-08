@@ -1,5 +1,6 @@
 <script>
 	import { Calculator } from '$lib/utils';
+	import MemoryDisplay from '$lib/components/MemoryDisplay.svelte';
 	import Display from '$lib/components/Display.svelte';
 	import Grid from '$lib/components/Grid.svelte';
 	import { fade, fly } from 'svelte/transition';
@@ -8,8 +9,10 @@
 
 	$: display = calc.getDisplay();
 	$: operator = calc.getOperator();
-
-	let bump = false;
+	$: memoryBank = calc.getMemory();
+	function getMemory() {
+		return memoryBank;
+	}
 
 	const buttons = [
 		{ text: '1', type: 'num', action: () => calc.appendNumber('1') },
@@ -41,6 +44,7 @@
 		action();
 		operator = calc.getOperator();
 		display = calc.getDisplay();
+		memoryBank = calc.getMemory();
 	}
 </script>
 
@@ -49,6 +53,8 @@
 	<Display {display} {operator} />
 	<Grid {buttons} onButtonClick={handleButton} />
 </div>
+<div class="memory-panel"><MemoryDisplay {memoryBank}></MemoryDisplay></div>
+
 
 <style>
 	h1 {
@@ -60,7 +66,6 @@
 		display: flex;
 		flex-flow: column;
 		max-width: 440px;
-		margin: var(--uppp) auto;
 		padding: var(--upp);
 		border: 2px solid var(--light2);
 		border-radius: var(--dp);

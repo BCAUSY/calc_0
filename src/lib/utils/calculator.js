@@ -1,83 +1,97 @@
 export default class Calculator {
-    constructor() {
-        this.currentInput = '0';
-        this.previousInput = '';
-        this.operator = null;
-    }
+	constructor() {
+		this.currentInput = '0';
+		this.previousInput = '';
+		this.operator = null;
+		this.memory = [];
+	}
 
-    appendNumber(number) {
-        if (this.currentInput === "0") return this.currentInput = ""
-        if (number === '.' && this.currentInput.includes('.')) return;
-        this.currentInput += number;
-    }
+	appendNumber(number) {
+		if (this.currentInput === '0') return (this.currentInput = '');
+		if (number === '.' && this.currentInput.includes('.')) return;
+		this.currentInput += number;
+	}
 
-    chooseOperator(operator) {
-        if(this.currentInput === '') return
-        if(this.currentInput === '0') {
-          this.clear()
-          this.getDisplay()
-          this.currentInput = ""
-         this.appendNumber("-")
-        }
-                
-        if(this.previousInput !== '') {
-            this.compute()
-        }
-        this.operator = operator;
+	chooseOperator(operator) {
+		if (this.currentInput === '') return;
+		if (this.currentInput === '0') {
+			this.clear();
+			this.getDisplay();
+			this.currentInput = '';
+			this.appendNumber('-');
+		}
 
-        
-        this.previousInput = this.currentInput;
-        this.currentInput = '';
-    }
+		if (this.previousInput !== '') {
+			this.compute();
+		}
+		this.operator = operator;
 
-    compute() {
-        const prev = parseFloat(this.previousInput);
-        const curr = parseFloat(this.currentInput);
-        if (isNaN(prev) || isNaN(curr)) return;
+		this.previousInput = this.currentInput;
+		this.currentInput = '';
+	}
 
-        let result;
-        switch (this.operator) {
-            case '+' :
-                result = prev + curr;
-                break;
-            case '-' :
-                result = prev - curr;
-                break;
-            case '*':
-                result = prev * curr;
-                break;
-            case '/' :
-                result =prev / curr;
-                break;
-            default:
-                return;
-        }
-        this.currentInput = result.toString();
-        this.operator = null;
-        this.previousInput = '';
-    }
+	compute() {
+		const prev = parseFloat(this.previousInput);
+		const curr = parseFloat(this.currentInput);
+		if (isNaN(prev) || isNaN(curr)) return;
 
-    clear() {
-        this.currentInput = '0';
-        this.previousInput + '';
-        this.operator = null;
-        this.getDisplay()
-    }
+		let result;
+		switch (this.operator) {
+			case '+':
+				result = prev + curr;
+				break;
+			case '-':
+				result = prev - curr;
+				break;
+			case '*':
+				result = prev * curr;
+				break;
+			case '/':
+				result = prev / curr;
+				break;
+			default:
+				return;
+		}
+		let operator = this.operator;
 
-    delete() {
-        if(this.currentInput.charAt(0) === "-") {
-            this.currentInput = this.currentInput.slice(0, -2)
-        } else {
+		let saveResult = { prev, operator, curr, result };
 
-            this.currentInput = this.currentInput.slice(0, -1);
-        }
-    }
+		if (this.memory.length < 10) {
+			this.memory.push(saveResult);
+		} else {
+			this.memory.shift();
+			this.memory.push(saveResult);
+		}
 
-    getDisplay() {
-        return (this.currentInput || this.previousInput || '0').toString()
-    }
+		this.currentInput = result.toString();
+		this.operator = null;
+		this.previousInput = '';
+	}
 
-    getOperator(){
-        return this.operator || null
-    }
+	getMemory() {
+		return this.memory;
+	}
+
+	clear() {
+		this.currentInput = '0';
+		this.previousInput + '';
+		this.operator = null;
+		this.getDisplay();
+	}
+
+	delete() {
+		if (this.currentInput.charAt(0) === '-') {
+			this.currentInput = this.currentInput.slice(0, -2);
+		} else {
+			this.currentInput = this.currentInput.slice(0, -1);
+		}
+	}
+
+	getDisplay() {
+		return (this.currentInput || this.previousInput || '0').toString();
+	}
+
+	getOperator() {
+		return this.operator || null;
+	}
 }

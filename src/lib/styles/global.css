@@ -30,5 +30,7 @@
 }
 body {
   background: var(--light1);
+  display: flex;
+  justify-content: center;
 }
 

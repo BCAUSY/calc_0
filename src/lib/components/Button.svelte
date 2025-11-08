@@ -64,7 +64,7 @@
 	}
 	.equal {
 		width: calc(100% / 1.5);
-		margin-top: var(--dp);
+		margin-top: var(--up);
 		margin-left: auto;
 		background-color: var(--orange);
 	}
@@ -73,6 +73,7 @@
 		font-weight: 600;
 		color: var(--dark3);
 		background-color: var(--red);
+		min-width: 78.13px;
 	}
 	.action:active {
 		box-shadow:
