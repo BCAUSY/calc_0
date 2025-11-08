@@ -2,12 +2,14 @@
 	import { Calculator } from '$lib/utils';
 	import Display from '$lib/components/Display.svelte';
 	import Grid from '$lib/components/Grid.svelte';
+	import { fade, fly } from 'svelte/transition';
 
 	let calc = new Calculator();
 
-	let display = calc.getDisplay();
+	$: display = calc.getDisplay();
+	$: operator = calc.getOperator();
 
-	let operator = calc.getOperator();
+	let bump = false;
 
 	const buttons = [
 		{ text: '1', type: 'num', action: () => calc.appendNumber('1') },
@@ -32,6 +34,7 @@
 		{ text: 'del', type: 'action', action: () => calc.delete() },
 		{ text: '=', type: 'equal', action: () => calc.compute() }
 	];
+
 	function handleButton(action) {
 		if (action.toString().match('calc.appendNumber') && calc.previousInput === '-')
 			calc.currentInput = '-';
@@ -39,8 +42,6 @@
 		operator = calc.getOperator();
 		display = calc.getDisplay();
 	}
-
-
 </script>
 
 <div class="calcBody">
@@ -48,24 +49,6 @@
 	<Display {display} {operator} />
 	<Grid {buttons} onButtonClick={handleButton} />
 </div>
-
-<!-- <script>
-  let glowIntensity = 0;
-
-  function triggerGlow() {
-    glowIntensity = 10;
-
-    setTimeout(() => glowIntensity = 0, 500);
-  }
-</script>
-
-<button
-  on:click={triggerGlow}
-  style="box-shadow: 0 0 {glowIntensity}px yellow;"
->
-  Click me
-</button>
- -->
 
 <style>
 	h1 {
@@ -102,7 +85,7 @@
 			0 8px 16px rgba(0, 0, 0, 0.07),
 			0 16px 32px rgba(0, 0, 0, 0.07),
 			0 32px 64px rgba(0, 0, 0, 0.007);
-
+		border-radius: var(--dpp);
 		transform: scale(100%);
 	}
 </style>
