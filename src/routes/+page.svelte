@@ -7,37 +7,40 @@
 
 	let display = calc.getDisplay();
 
-    let operator = calc.getOperator()
+	let operator = calc.getOperator();
 
 	const buttons = [
-  { text: '1', type: 'num', action: () => calc.appendNumber('1') },
-  { text: '2', type: 'num', action: () => calc.appendNumber('2') },
-  { text: '3', type: 'num', action: () => calc.appendNumber('3') },
-  { text: '+', type: 'operator', action: () => calc.chooseOperator('+') },
+		{ text: '1', type: 'num', action: () => calc.appendNumber('1') },
+		{ text: '2', type: 'num', action: () => calc.appendNumber('2') },
+		{ text: '3', type: 'num', action: () => calc.appendNumber('3') },
+		{ text: '+', type: 'operator', action: () => calc.chooseOperator('+') },
 
-  { text: '4', type: 'num', action: () => calc.appendNumber('4') },
-  { text: '5', type: 'num', action: () => calc.appendNumber('5') },
-  { text: '6', type: 'num', action: () => calc.appendNumber('6') },
-  { text: '−', type: 'operator', action: () => calc.chooseOperator('-') },
+		{ text: '4', type: 'num', action: () => calc.appendNumber('4') },
+		{ text: '5', type: 'num', action: () => calc.appendNumber('5') },
+		{ text: '6', type: 'num', action: () => calc.appendNumber('6') },
+		{ text: '−', type: 'operator', action: () => calc.chooseOperator('-') },
 
-  { text: '7', type: 'num', action: () => calc.appendNumber('7') },
-  { text: '8', type: 'num', action: () => calc.appendNumber('8') },
-  { text: '9', type: 'num', action: () => calc.appendNumber('9') },
-  { text: '×', type: 'operator', action: () => calc.chooseOperator('*') },
+		{ text: '7', type: 'num', action: () => calc.appendNumber('7') },
+		{ text: '8', type: 'num', action: () => calc.appendNumber('8') },
+		{ text: '9', type: 'num', action: () => calc.appendNumber('9') },
+		{ text: '×', type: 'operator', action: () => calc.chooseOperator('*') },
 
-  { text: 'C', type: 'action', action: () => calc.clear() },
-  { text: '0', type: 'num', action: () => calc.appendNumber('0') },
-  { text: '÷', type: 'operator', action: () => calc.chooseOperator('/') },
+		{ text: 'C', type: 'action', action: () => calc.clear() },
+		{ text: '0', type: 'num', action: () => calc.appendNumber('0') },
+		{ text: '÷', type: 'operator', action: () => calc.chooseOperator('/') },
 
-  { text: 'del', type: 'action', action: () => calc.delete() },
-  { text: '=', type: 'equal', action: () => calc.compute() }
+		{ text: 'del', type: 'action', action: () => calc.delete() },
+		{ text: '=', type: 'equal', action: () => calc.compute() }
 	];
 	function handleButton(action) {
-         console.log('handleButton triggered');
+		if (action.toString().match('calc.appendNumber') && calc.previousInput === '-')
+			calc.currentInput = '-';
 		action();
-        operator = calc.getOperator()
+		operator = calc.getOperator();
 		display = calc.getDisplay();
 	}
+
+
 </script>
 
 <div class="calcBody">
@@ -46,13 +49,30 @@
 	<Grid {buttons} onButtonClick={handleButton} />
 </div>
 
-<style>
+<!-- <script>
+  let glowIntensity = 0;
 
-   h1 {
-        font-size: 1rem;
-        margin: 0 var(--dppp) var(--up);
-        color: var(--dark2);
-    }
+  function triggerGlow() {
+    glowIntensity = 10;
+
+    setTimeout(() => glowIntensity = 0, 500);
+  }
+</script>
+
+<button
+  on:click={triggerGlow}
+  style="box-shadow: 0 0 {glowIntensity}px yellow;"
+>
+  Click me
+</button>
+ -->
+
+<style>
+	h1 {
+		font-size: 1rem;
+		margin: 0 var(--dppp) var(--up);
+		color: var(--dark2);
+	}
 	.calcBody {
 		display: flex;
 		flex-flow: column;
@@ -62,7 +82,7 @@
 		border: 2px solid var(--light2);
 		border-radius: var(--dp);
 		box-shadow:
-        		inset 3px 5px 5px var(--light1),
+			inset 3px 5px 14px var(--light1),
 			0 1px 1px rgba(0, 0, 0, 0.25),
 			0 1px 1px rgba(0, 0, 0, 0.644),
 			0 4px 4px rgba(0, 0, 0, 0.15),
@@ -72,17 +92,17 @@
 		transform: scale(99.5%);
 		transition: all 0.15s cubic-bezier(0.65, -0.25, 0.25, 1.25);
 	}
-    
+
 	.calcBody:hover {
-        box-shadow:
-        inset 3px 5px 14px var(--light1),
-        0 1px 2px rgba(0, 0, 0, 0.404),
-        0 2px 4px rgba(0, 0, 0, 0.07),
-        0 4px 8px rgba(0, 0, 0, 0.07),
-        0 8px 16px rgba(0, 0, 0, 0.07),
-        0 16px 32px rgba(0, 0, 0, 0.07),
-        0 32px 64px rgba(0, 0, 0, 0.007);
-        
+		box-shadow:
+			inset 3px 5px 5px var(--light1),
+			0 1px 2px rgba(0, 0, 0, 0.404),
+			0 2px 4px rgba(0, 0, 0, 0.07),
+			0 4px 8px rgba(0, 0, 0, 0.07),
+			0 8px 16px rgba(0, 0, 0, 0.07),
+			0 16px 32px rgba(0, 0, 0, 0.07),
+			0 32px 64px rgba(0, 0, 0, 0.007);
+
 		transform: scale(100%);
 	}
 </style>

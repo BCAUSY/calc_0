@@ -1,21 +1,31 @@
 export default class Calculator {
     constructor() {
-        this.currentInput = '';
+        this.currentInput = '0';
         this.previousInput = '';
         this.operator = null;
     }
 
     appendNumber(number) {
+        if (this.currentInput === "0") return this.currentInput = ""
         if (number === '.' && this.currentInput.includes('.')) return;
         this.currentInput += number;
     }
 
     chooseOperator(operator) {
         if(this.currentInput === '') return
+        if(this.currentInput === '0') {
+          this.clear()
+          this.getDisplay()
+          this.currentInput = ""
+         this.appendNumber("-")
+        }
+                
         if(this.previousInput !== '') {
             this.compute()
         }
         this.operator = operator;
+
+        
         this.previousInput = this.currentInput;
         this.currentInput = '';
     }
@@ -55,8 +65,12 @@ export default class Calculator {
     }
 
     delete() {
-        // delete -5 deletes 5 only
-        this.currentInput = this.currentInput.slice(0, -1);
+        if(this.currentInput.charAt(0) === "-") {
+            this.currentInput = this.currentInput.slice(0, -2)
+        } else {
+
+            this.currentInput = this.currentInput.slice(0, -1);
+        }
     }
 
     getDisplay() {
