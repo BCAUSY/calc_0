@@ -7,11 +7,11 @@
 
 	let calc = new Calculator();
 
-	$: display = calc.getDisplay();
-	$: operator = calc.getOperator();
-	$: memoryBank = calc.getMemory();
+	let display = calc.getDisplay();
+	let operator = calc.getOperator();
+	let memoryBank = calc.getMemory();
 	function getMemory() {
-		return memoryBank;
+		return memoryBank
 	}
 
 	const buttons = [
@@ -46,6 +46,10 @@
 		display = calc.getDisplay();
 		memoryBank = calc.getMemory();
 	}
+
+
+		calc.appendNumber("0")
+	
 </script>
 
 <div class="calcBody">
@@ -59,6 +63,9 @@
 <style>
 	h1 {
 		font-size: 1rem;
+		text-shadow: 
+		1px 1px 3px var(--orange),
+		1px 1px 0px var(--orange);
 		margin: 0 var(--dppp) var(--up);
 		color: var(--dark2);
 	}
@@ -67,6 +74,7 @@
 		flex-flow: column;
 		max-width: 440px;
 		padding: var(--upp);
+		margin: 0;
 		border: 2px solid var(--light2);
 		border-radius: var(--dp);
 		box-shadow:
@@ -77,7 +85,7 @@
 			0 8px 8px rgba(0, 0, 0, 0.1),
 			0 16px 16px rgba(0, 0, 0, 0.05);
 		background-color: var(--green2);
-		transform: scale(99.5%);
+		transform: scale(99.8%);
 		transition: all 0.15s cubic-bezier(0.65, -0.25, 0.25, 1.25);
 	}
 
@@ -93,4 +101,6 @@
 		border-radius: var(--dpp);
 		transform: scale(100%);
 	}
+
+
 </style>

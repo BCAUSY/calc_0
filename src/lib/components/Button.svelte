@@ -29,7 +29,7 @@
 		cursor: pointer;
 		filter: brightness(1.03);
 	}
-	.btn:active {
+	.btn:active:not(.equal) {
 		transform: scale(0.99);
 		filter: brightness(1.05);
 		box-shadow:
@@ -67,6 +67,14 @@
 		margin-top: var(--up);
 		margin-left: auto;
 		background-color: var(--orange);
+	}
+
+	.equal:active {
+		background-color: var(--orange);
+				box-shadow:
+			0 0 3px var(--dark3),
+			0 0 9px var(--dark3),
+			0 0 16px var(--dark3)
 	}
 
 	.action {

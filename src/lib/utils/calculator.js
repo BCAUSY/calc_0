@@ -76,6 +76,7 @@ export default class Calculator {
 		this.currentInput = '0';
 		this.previousInput + '';
 		this.operator = null;
+		this.appendNumber("0")
 		this.getDisplay();
 	}
 
@@ -88,10 +89,11 @@ export default class Calculator {
 	}
 
 	getDisplay() {
-		return (this.currentInput || this.previousInput || '0').toString();
+		return (this.currentInput || this.previousInput || '0');
 	}
 
 	getOperator() {
 		return this.operator || null;
 	}
+	
 }

@@ -5,6 +5,7 @@
 	import { blur } from 'svelte/transition';
 	import { cubicInOut } from 'svelte/easing';
 </script>
+
 <div class="display">
 	<p id="top-display">
 		<span class:active={operator === '+'}>+</span>
@@ -13,11 +14,12 @@
 		<span class:active={operator === '/'}>÷</span>
 	</p>
 	{#key display}
-	<p id="main-display" in:blur={{ amount: 1, duration: 460, easing: cubicInOut }}>
-		{display}
-	</p>
+		<p id="main-display" in:blur={{ amount: 1, duration: 460, easing: cubicInOut }}>
+			{display}
+		</p>
 	{/key}
 </div>
+
 <style>
 	.display {
 		user-select: none;
@@ -41,7 +43,6 @@
 			0 16px 16px rgba(0, 0, 0, 0.05);
 	}
 
-	
 	#top-display {
 		font-weight: 900;
 		font-size: 1rem;
